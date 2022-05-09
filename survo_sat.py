@@ -1,7 +1,4 @@
 from z3 import *
-import matplotlib.pyplot as plt
-import os
-import time
 
 def SurvoSat(puzzle):
 	# Note: We assume the given puzzle corresponds to the rules.
