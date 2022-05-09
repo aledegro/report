@@ -45,53 +45,8 @@ def SurvoSat(puzzle):
 
 
 if __name__ == "__main__":
-	results = open("results.txt", 'w')
-	plt.xlabel("Time needed")
-	plt.ylabel("Size of the grid")
-	plt.title("Speed of SMT solver for different survo sizes")
-	resultX = []
-	resultY = []
-
-	for filename in os.listdir('survos'):
-		board = []
-		with open("survos/" + filename, 'r') as file:
-			lines = file.readlines()
-			for line in lines:
-				firstComa = -1
-				row = []
-				for i in range(len(line)):
-					if line[i] == ',':
-						row.append(int(line[firstComa+1: i]))
-						firstComa = i
-				row.append(int(line[firstComa+1: len(line)]))
-				board.append(row)
-		startTime = time.time()
-		SurvoSat(board)
-		totalTime = time.time() - startTime
-		resultX.append(totalTime)
-		resultY.append(filename[:filename.find("#")])
-		results.write(str(totalTime) + " for " + filename)
-	results.close()
-	averageX = [0]
-	averageY = [0]
-	precision = []
-	type = resultY[0]
-	print(type)
-	number = 0
-	for x in range(len(resultX)):
-		if(resultY[x] != type):
-			averageX[-1] /= number
-			averageX.append(0)
-			averageY[-1] /= number
-			averageY.append(0)
-			precision.append(number)
-			number = 0
-		averageX[-1] += resultX[x]
-		averageY[-1] += resultY[x]
-		number += 1
-
-	sortedPrecision = precision.sort()
-	colors = ["c", "b", "y", "g", "m", "r", "k"]
-	for x in range(len(averageX)):
-		plot.plot(averageX[x], averageY[x], color=colors[sortedPrecision.find(precision[x])])
-	plt.show()
+	puzzle = [[0, 6, 0, 0, 30],
+			  [8, 0, 0, 0, 18],
+			  [0, 0, 3, 0, 30],
+			  [27, 16, 10, 25]]
+	SurvoSat(puzzle)
